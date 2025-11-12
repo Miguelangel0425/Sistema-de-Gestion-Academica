@@ -571,15 +571,15 @@ int main()
 					} while (!utils::esNoVacio(codMat));
 					do
 					{
-						cout << "Creditos (1-30): ";
+						cout << "Creditos (1-6): ";
 						getline(cin, creditosStr);
-					} while (!utils::esNumero(creditosStr) || !(utils::enRango(stod(utils::trim(creditosStr)), 1.0, 30.0)));
+					} while (!utils::esNumero(creditosStr) || !(utils::enRango(stod(utils::trim(creditosStr)), 1.0, 6.0)));
 					creditos = static_cast<int>(stod(utils::trim(creditosStr)));
 					do
 					{
-						cout << "Calificacion (0-100): ";
+						cout << "Calificacion (0-20): ";
 						getline(cin, califStr);
-					} while (!utils::esNumero(califStr) || !(utils::enRango(stod(utils::trim(califStr)), 0.0, 100.0)));
+					} while (!utils::esNumero(califStr) || !(utils::enRango(stod(utils::trim(califStr)), 0.0, 20.0)));
 					calif = stod(utils::trim(califStr));
 					lista.asignarMateria(id.c_str(), nombreMat.c_str(), codMat.c_str(), creditos, calif);
 					Estudiante eSnap;
@@ -780,6 +780,8 @@ int main()
 		}
 	} while (opcion != 8);
 
+	//guardado de datos al salir.
+	exportarDatosTXT(lista);
 	// Liberación de memoria con confirmación
 	cout << "Liberando memoria de estudiantes..." << endl;
 	lista.limpiar();

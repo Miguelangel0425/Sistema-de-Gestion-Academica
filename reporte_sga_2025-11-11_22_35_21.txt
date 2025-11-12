@@ -1,8 +1,0 @@
-Sistema de Gestion Academica - Exportacion
-Generado: 2025-11-11 22:35:21
-
-Estudiante: Kenai
-ID: L0512 | Carrera: Ing en Software
-Promedio general: 0.00
-  Sin materias registradas.
-----------------------------------------
