@@ -175,8 +175,22 @@ void listaEstudiantes::eliminarEstudiante(codigoEstudiante id) {
 	delete actual;
 	cout << "Estudiante eliminado de forma correcta." << endl;
 }
-
-// Método para asignar materia (9/11/2025)
+double listaEstudiantes::recalcularPromedio(const string& id){
+	nodo* actual = buscarPorId(id);
+	if(actual == nullptr){
+		return 0;
+	}
+	if(actual->estudiante.materias.empty()){
+		actual->estudiante.promedio = 0.0;
+	} else {
+		double suma = 0.0;
+			for (const auto& mat : actual->estudiante.materias) {
+			suma += mat.getCalificacion();
+		}
+		actual->estudiante.promedio = suma/actual->estudiante.materias.size();
+	}
+}
+// Método para asignar materia 
 void listaEstudiantes::asignarMateria(const char* id, const char* nombreMat, const char* codigoMat, int creditos, double calificacion) {
 	string idStr = id;
 	nodo* actual = cabeza;
@@ -192,6 +206,8 @@ void listaEstudiantes::asignarMateria(const char* id, const char* nombreMat, con
 	// Crear una nueva materia y agregarla al vector del estudiante
 	Materia<double> nuevaMateria(string(nombreMat), string(codigoMat), creditos, calificacion);
 	actual->estudiante.materias.push_back(nuevaMateria);
+	//recalcular el promedio
+	actual->estudiante.promedio = recalcularPromedio(id);
 	cout << "Materia asignada exitosamente al estudiante " << actual->estudiante.nombre << endl;
 }
 

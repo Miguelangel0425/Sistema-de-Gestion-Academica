@@ -1,0 +1,14 @@
+Sistema de Gestion Academica - Exportacion
+Generado: 2025-11-12 10:44:39
+
+Estudiante: Miguel Caiza
+ID: L0425 | Carrera: Ing en Software
+Promedio general: 0.00
+  Materia 1: CALCULO VECTORIAL  (A303)
+    Creditos: 4 | Calificacion: 19.00
+----------------------------------------
+Estudiante: Kenai Ramirez 
+ID: L0512 | Carrera: Ing en Software
+Promedio general: 0.00
+  Sin materias registradas.
+----------------------------------------

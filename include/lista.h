@@ -23,7 +23,7 @@ public:
 	void buscarPorNombre(const string& nombre) const;
     void eliminarEstudiante(codigoEstudiante id);
     void asignarMateria(const char* id, const char* nombreMat, const char* codigoMat, int creditos, double calificacion);
-
+    double recalcularPromedio(const string& id);
 	// Accesores
     nodo* getCabeza() const;
 	void limpiar();
