@@ -1,20 +1,20 @@
 DOCUMENTACIÓN COMPLETA DEL PROYECTO
 
 📋 ¿QUÉ ES EL PROYECTO?
-Nombre del Sistema
-Sistema de Análisis Estructurado de Datos - Gestión de Pedidos E-commerce
-Descripción General
-Es un sistema de gestión de pedidos que simula un entorno de e-commerce, donde se:
 
+- Nombre del Sistema
+Sistema de Análisis Estructurado de Datos - Gestión de Pedidos E-commerce
+
+- Descripción General
+Es un sistema de gestión de pedidos que simula un entorno de e-commerce, donde se:
 Registran clientes que realizan compras
 Catalogan productos disponibles para la venta
 Crean pedidos con diferentes niveles de prioridad
 Procesan pedidos según su urgencia
 Mantienen historial de todas las operaciones realizadas
 
-Propósito Académico
+- Propósito Académico
 Demostrar el uso práctico de 4 estructuras de datos fundamentales:
-
 Árbol Binario de Búsqueda (BST) - Para clientes
 Cola de Prioridad - Para pedidos
 Lista Enlazada - Para productos
@@ -22,6 +22,7 @@ Pila - Para historial de operaciones
 
 
 🎯 OBJETIVOS DEL PROYECTO
+
 Objetivos Principales
 
 ✅ Validar datos estructurados antes de procesarlos
