@@ -1,0 +1,3 @@
+#ifndef VISUALIZADOR_H
+
+#endif VISUALZADOR_H
