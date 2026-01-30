@@ -1,0 +1,8 @@
+Sistema de Gestion Academica - Exportacion
+Generado: 2025-11-14 09:32:00
+
+Estudiante: Freddy
+ID: 0045 | Carrera: Software
+Promedio general: 0.00
+  Sin materias registradas.
+----------------------------------------
