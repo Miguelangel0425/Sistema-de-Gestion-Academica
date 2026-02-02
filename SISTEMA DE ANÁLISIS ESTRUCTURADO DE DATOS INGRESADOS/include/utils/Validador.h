@@ -16,7 +16,7 @@ class Validador{
 
     static bool esTelefonoValido(const string& telefono);
 
-    static bool esFechaValida(const string& fecha);
+    //static bool esFechaValida(const string& fecha);
 
     static bool enRango(int numero, int min, int max);
     
