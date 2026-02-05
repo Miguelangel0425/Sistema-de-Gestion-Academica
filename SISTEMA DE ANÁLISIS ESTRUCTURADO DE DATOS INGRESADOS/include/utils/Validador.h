@@ -21,7 +21,8 @@ class Validador{
     static bool enRango(int numero, int min, int max);
     
     static bool esPrecioValido(double precio);
-
+    
+    //divide los string por un deliminador establecido
     static vector<string> split(const string& str,char delimitador);
 
     static bool validarCliente(const string& entrada,vector<string>& campos);
@@ -30,6 +31,7 @@ class Validador{
 
     static bool validarPedido(const string& entrada, vector<string>& campos);
     
+    //elimina espacios al inicio y final
     static string trim(const string& str);
 };
 
