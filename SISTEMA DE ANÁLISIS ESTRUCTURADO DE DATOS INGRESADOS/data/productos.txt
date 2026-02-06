@@ -1,0 +1,20 @@
+0|Laptop HP Pavilion|899.99|15|Electronica
+1|Mouse Logitech MX|45.5|50|Electronica
+2|Teclado Mecanico RGB|85|30|Electronica
+3|Monitor Samsung 24"|199.99|20|Electronica
+4|Escritorio Ejecutivo|350|8|Muebles
+5|Silla Ergonomica|180|12|Muebles
+6|Impresora HP LaserJet|299.99|10|Electronica
+7|Disco Duro Externo 1TB|65|25|Electronica
+8|Webcam Logitech HD|55|18|Electronica
+9|Auriculares Bluetooth|75|35|Electronica
+10|Cable HDMI 2m|12.5|100|Accesorios
+11|Hub USB 4 puertos|25|40|Accesorios
+12|Mousepad Gaming|18|60|Accesorios
+13|Lampara de Escritorio LED|32|22|Iluminacion
+14|Organizador de Cables|8.5|80|Accesorios
+15|Soporte para Laptop|28|25|Accesorios
+16|Memorias USB 32GB|15|70|Electronica
+17|Router WiFi 6|120|14|Electronica
+18|Camara Web 4K|95|10|Electronica
+19|Microfono de Condensador|110|8|Electronica

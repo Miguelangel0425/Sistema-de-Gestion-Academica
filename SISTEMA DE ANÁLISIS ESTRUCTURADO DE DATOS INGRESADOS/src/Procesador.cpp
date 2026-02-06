@@ -47,7 +47,7 @@ Producto Procesador::procesarProducto(const vector<string>& campos){
     Producto producto(id, campos[0],precio,cantidad,campos[3]);
 
     cout << "\n||======================================||" << endl;
-    cout << "||  TRANSFORMACIÓN DE DATOS - PRODUCTO    ||" << endl;
+    cout << "||  TRANSFORMACION DE DATOS - PRODUCTO    ||" << endl;
     cout << "||========================================||" << endl;
 
     cout << "\n [PASO 1] Datos recibidos: " << endl;
@@ -55,18 +55,18 @@ Producto Procesador::procesarProducto(const vector<string>& campos){
         cout << "Campo" << i+1 << ": " << campos[i] << endl; 
     }
 
-    cout << "\n[PASO 2] Conversión de tipos de datos:" << endl;
-    cout << "  Precio (string → double): " << fixed << setprecision(2) << precio << endl;
-    cout << "  Cantidad (string → int): " << cantidad << endl;
+    cout << "\n[PASO 2] Conversion de tipos de datos:" << endl;
+    cout << "  Precio (string -> double): " << fixed << setprecision(2) << precio << endl;
+    cout << "  Cantidad (string -> int): " << cantidad << endl;
     
-    cout << "\n[PASO 3] Generación de ID único:" << endl;
+    cout << "\n[PASO 3] Generacion de ID unico:" << endl;
     cout << "  ID asignado: " << id << endl;
     
-    cout << "\n[PASO 4] Cálculo de subtotal:" << endl;
-    cout << "  Subtotal = Precio × Cantidad" << endl;
-    cout << "  Subtotal = $" << precio << " × " << cantidad << " = $" << producto.calcularSubtotal() << endl;
+    cout << "\n[PASO 4] Calculo de subtotal:" << endl;
+    cout << "  Subtotal = Precio x Cantidad" << endl;
+    cout << "  Subtotal = " << precio << " x " << cantidad << " = " << producto.calcularSubtotal() << endl;
     
-    cout << "\n[PASO 5] Creación de estructura Producto:" << endl;
+    cout << "\n[PASO 5] Creacion de estructura Producto:" << endl;
     producto.mostrar();
     
     cout << "\n[PASO 6] Insertando en Lista Enlazada..." << endl;
@@ -91,7 +91,7 @@ Pedido Procesador::procesarPedido(int idCliente, int prioridad,const vector<Prod
 
     cout << "\n[PASO 1] Verificando existencia del cliente..." << endl;
     Cliente* cliente = arbolClientes->buscar(idCliente);
-    if(cliente != nullptr){
+    if(cliente == nullptr){
         throw runtime_error("Cliente no encontrado en el sistema.");
     }
     cout << " + Cliente encontrado: " << cliente->nombre << endl;
@@ -200,7 +200,7 @@ void Procesador::procesarSiguientePedido(){
         prodInventario.cantidad -= prodPedido.cantidad;
         
         cout << "  - " << prodInventario.nombre << ": "
-            << stockAnterior << " → " << prodInventario.cantidad << " unidades";
+            << stockAnterior << " -> " << prodInventario.cantidad << " unidades";
         
         if (prodInventario.cantidad == 0) {
             cout << " Agotado" << endl;
@@ -219,7 +219,7 @@ void Procesador::procesarSiguientePedido(){
     
     cout << "\n[PASO 5] Simulando procesamiento..." << endl;
     cout << "  - Generando factura..." << endl;
-    cout << "  - Preparando envío..." << endl;
+    cout << "  - Preparando envio..." << endl;
     cout << "  - Notificando al cliente..." << endl;
     
     cout << "\n[PASO 6] Finalizando pedido..." << endl;
@@ -302,10 +302,10 @@ bool Procesador::desactivarCliente(int idCliente){
     cout << "\n[PASO 3] Confirmacion de desactivacion..." << endl;
     cout << "\n!  El cliente pasara a estado INACTIVO" << endl;
     cout << "Esto significa que:" << endl;
-    cout << "  • NO podra crear nuevos pedidos" << endl;
-    cout << "  • Permanecerá en el sistema para historial" << endl;
-    cout << "  • Sus pedidos actuales se procesaran normalmente" << endl;
-    cout << "  • Puede ser reactivado en cualquier momento" << endl;
+    cout << "  * NO podra crear nuevos pedidos" << endl;
+    cout << "  * Permanecerá en el sistema para historial" << endl;
+    cout << "  * Sus pedidos actuales se procesaran normalmente" << endl;
+    cout << "  * Puede ser reactivado en cualquier momento" << endl;
     cout << "\n¿Esta seguro de desactivar al cliente '" << cliente->nombre << "'? (s/n): ";
     
     char confirmacion;
@@ -365,8 +365,8 @@ bool Procesador::reactivarCliente(int idCliente) {
         
         cout << "\n+ Cliente reactivado exitosamente" << endl;
         cout << "\nEl cliente ahora puede:" << endl;
-        cout << "  • Crear nuevos pedidos" << endl;
-        cout << "  • Realizar todas las operaciones normalmente" << endl;
+        cout << "  * Crear nuevos pedidos" << endl;
+        cout << "  * Realizar todas las operaciones normalmente" << endl;
         
         cout << "\nEstado actual:" << endl;
         cliente->mostrar();
@@ -436,7 +436,7 @@ void Procesador::verificarStockCritico(){
         const Producto& prod = listaProductos->obtener(i);
         
         if (prod.cantidad == 0) {
-            cout << "\n🔴 AGOTADO: " << prod.nombre << endl;
+            cout << "\nX AGOTADO: " << prod.nombre << endl;
             cout << "   ID: " << prod.id << endl;
             cout << "   Accion: Reabastecer INMEDIATAMENTE" << endl;
             hayAlertas = true;
@@ -482,7 +482,7 @@ string Procesador::obtenerFechaActual(){
 
     stringstream ss;
     ss << setfill('0') << setw(2) << ltm->tm_mday << "/"
-    << setw(2) << ltm->tm_mon << "/" <<(1900+ltm->tm_year);
+    << setw(2) << (ltm->tm_mon + 1) << "/" <<(1900+ltm->tm_year);
     
     return ss.str();
 }
@@ -499,8 +499,8 @@ void Procesador::calcularEstadisticas(){
     cout << "||========================================||" << endl;
 
     cout << "\nClientes registrados: " << arbolClientes->getTam() << endl;
-    cout << "  ├─ Activos: " << arbolClientes->contarActivos() << " +" << endl;
-    cout << "  └─ Inactivos: " << arbolClientes->contarInactivos() << "X" << endl;
+    cout << "  |- Activos: " << arbolClientes->contarActivos() << " +" << endl;
+    cout << "  |- Inactivos: " << arbolClientes->contarInactivos() << " X " << endl;
     cout << "\nProductos en catálogo: " << listaProductos->getTam() << endl;
     cout << "Pedidos pendientes: " << colaPedidos->getTam() << endl;
     cout << "Operaciones en historial: " << pilaHistorial->getTam() << endl;

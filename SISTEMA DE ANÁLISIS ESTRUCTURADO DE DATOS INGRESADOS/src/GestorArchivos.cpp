@@ -203,7 +203,7 @@ bool GestorArchivos::guardarPedidos(colaPrioridad<Pedido>& cola) {
 // ========================================
 // CARGAR PEDIDOS (simplificado)
 // ========================================
-bool GestorArchivos::cargarPedidos(colaPrioridad<Pedido>& cola) {
+bool GestorArchivos::cargarPedidos(colaPrioridad<Pedido>& cola, ListaEnlazada<Producto>& listaProductos) {
     ifstream archivo(rutaPedidos);
     if (!archivo.is_open()) {
         return false;
@@ -221,20 +221,49 @@ bool GestorArchivos::cargarPedidos(colaPrioridad<Pedido>& cola) {
             campos.push_back(campo);
         }
         
-        if (campos.size() >= 6) {
+        if (campos.size() >= 7) {  // Ahora esperamos 7 campos (incluye productos)
             int id = stoi(campos[0]);
             int idCliente = stoi(campos[1]);
             string fecha = campos[2];
             int prioridad = stoi(campos[3]);
             string estado = campos[4];
             double total = stod(campos[5]);
+            string productosStr = campos[6];  // String: "0:2;1:3;4:1"
             
             Pedido pedido(id, idCliente, fecha, prioridad);
             pedido.estado = estado;
             pedido.total = total;
             
-            // Nota: Los productos no se reconstruyen completamente
-            // En producción, necesitarías buscar cada producto en el inventario
+            // 
+            if (!productosStr.empty()) {
+                stringstream ssProds(productosStr);
+                string prodToken;
+                
+                // Separar por ";" para obtener cada producto
+                while (getline(ssProds, prodToken, ';')) {
+                    stringstream ssProd(prodToken);
+                    string idStr, cantStr;
+                    
+                    // Separar por ":" para obtener ID:Cantidad
+                    if (getline(ssProd, idStr, ':') && getline(ssProd, cantStr)) {
+                        int prodId = stoi(idStr);
+                        int cantidadPedida = stoi(cantStr);
+                        
+                        // Buscar el producto en el inventario
+                        for (int i = 0; i < listaProductos.getTam(); i++) {
+                            Producto prod = listaProductos.obtener(i);
+                            
+                            if (prod.id == prodId) {
+                                // Crear copia del producto con la cantidad pedida
+                                Producto prodPedido = prod;
+                                prodPedido.cantidad = cantidadPedida;
+                                pedido.productos.push_back(prodPedido);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
             
             cola.encolar(pedido, prioridad);
             contador++;
@@ -346,13 +375,13 @@ bool GestorArchivos::cargarContadores(int& clientes, int& productos, int& pedido
 // ========================================
 bool GestorArchivos::guardarTodo(arbolBinario<Cliente>& arbol,ListaEnlazada<Producto>& lista,
     colaPrioridad<Pedido>& cola,Pila<string>& pila,int contClientes, int contProductos, int contPedidos) {
-    cout << "\n||========================================||" << endl;
+    /*cout << "\n||========================================||" << endl;
     cout << "||      GUARDANDO DATOS EN ARCHIVOS       ||" << endl;
-    cout << "||========================================||" << endl;
+    cout << "||========================================||" << endl;*/
     
     bool exito = true;
     
-    cout << "\n[1/5] Guardando clientes..." << endl;
+    //cout << "\n[1/5] Guardando clientes..." << endl;
     if (guardarClientes(arbol)) {
         cout << "  + " << arbol.getTam() << " clientes guardados" << endl;
     } else {
@@ -360,7 +389,7 @@ bool GestorArchivos::guardarTodo(arbolBinario<Cliente>& arbol,ListaEnlazada<Prod
         exito = false;
     }
     
-    cout << "\n[2/5] Guardando productos..." << endl;
+    //cout << "\n[2/5] Guardando productos..." << endl;
     if (guardarProductos(lista)) {
         cout << "  + " << lista.getTam() << " productos guardados" << endl;
     } else {
@@ -368,7 +397,7 @@ bool GestorArchivos::guardarTodo(arbolBinario<Cliente>& arbol,ListaEnlazada<Prod
         exito = false;
     }
     
-    cout << "\n[3/5] Guardando pedidos..." << endl;
+    //cout << "\n[3/5] Guardando pedidos..." << endl;
     if (guardarPedidos(cola)) {
         cout << "  + " << cola.getTam() << " pedidos guardados" << endl;
     } else {
@@ -376,7 +405,7 @@ bool GestorArchivos::guardarTodo(arbolBinario<Cliente>& arbol,ListaEnlazada<Prod
         exito = false;
     }
     
-    cout << "\n[4/5] Guardando historial..." << endl;
+    //cout << "\n[4/5] Guardando historial..." << endl;
     if (guardarHistorial(pila)) {
         cout << "  + " << pila.getTam() << " operaciones guardadas" << endl;
     } else {
@@ -384,17 +413,17 @@ bool GestorArchivos::guardarTodo(arbolBinario<Cliente>& arbol,ListaEnlazada<Prod
         exito = false;
     }
     
-    cout << "\n[5/5] Guardando contadores..." << endl;
+   // cout << "\n[5/5] Guardando contadores..." << endl;
     if (guardarContadores(contClientes, contProductos, contPedidos)) {
-        cout << "  ✓ Contadores guardados" << endl;
+        cout << "  + Contadores guardados" << endl;
     } else {
-        cout << "  ❌ Error al guardar contadores" << endl;
+        cout << "  X Error al guardar contadores" << endl;
         exito = false;
     }
     
     if (exito) {
         cout << "\n=========================================" << endl;
-        cout << "✓ Todos los datos guardados exitosamente" << endl;
+        cout << "+ Todos los datos guardados exitosamente" << endl;
         cout << "  Ubicación: carpeta 'data/'" << endl;
         cout << "=========================================" << endl;
     }
@@ -425,7 +454,7 @@ bool GestorArchivos::cargarTodo(arbolBinario<Cliente>& arbol,
     cargarProductos(lista);
     
     cout << "\n[3/5] Cargando pedidos..." << endl;
-    cargarPedidos(cola);
+    cargarPedidos(cola, lista);
     
     cout << "\n[4/5] Cargando historial..." << endl;
     cargarHistorial(pila);
@@ -453,6 +482,6 @@ bool GestorArchivos::limpiarArchivos() {
     remove(rutaHistorial.c_str());
     remove(rutaContadores.c_str());
     
-    cout << "✓ Archivos de datos eliminados" << endl;
+    cout << "+ Archivos de datos eliminados" << endl;
     return true;
 }

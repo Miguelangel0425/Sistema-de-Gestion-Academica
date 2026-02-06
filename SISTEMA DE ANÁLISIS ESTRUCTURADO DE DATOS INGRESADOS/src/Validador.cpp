@@ -14,7 +14,7 @@ bool Validador::esNumero(const string& str){
 
 bool Validador::esEmailValido(const string& email){
     regex patron(R"(^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$)");
-    regex_match(email,patron);
+    return regex_match(email,patron);
 }
 
 bool Validador::esTelefonoValido(const string& telefono){

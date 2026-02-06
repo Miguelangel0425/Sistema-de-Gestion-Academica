@@ -1,0 +1,14 @@
+1000|Juan Perez|juan.perez@email.com|0999123456|Av. Principal 123 Quito|1
+1001|Maria Gonzalez|maria.gonzalez@email.com|0998765432|Calle Secundaria 456 Sangolqui|1
+1002|Carlos Rodriguez|carlos.rodriguez@email.com|0997654321|Av. Los Shyris 789 Quito|1
+1003|Ana Martinez|ana.martinez@email.com|0996543210|Calle Garcia Moreno 321 Quito|1
+1004|Luis Fernandez|luis.fernandez@email.com|0995432109|Av. 6 de Diciembre 654 Quito|1
+1005|Patricia Lopez|patricia.lopez@email.com|0994321098|Calle Bolivar 987 Sangolqui|0
+1006|Roberto Sanchez|roberto.sanchez@email.com|0993210987|Av. Amazonas 147 Quito|1
+1007|Carmen Diaz|carmen.diaz@email.com|0992109876|Calle Flores 258 Quito|1
+1008|Jorge Torres|jorge.torres@email.com|0991098765|Av. Occidental 369 Quito|0
+1009|Laura Ramirez|laura.ramirez@email.com|0990987654|Calle Mejia 741 Sangolqui|1
+1010|Miguel Caiza|miguel.caiza@email.com|0962893714|Los Laureles 5 Sangolqui|1
+1011|Johan Garcia|jgarcia@email.com|0947125863|Los Cipreses 14 Sangolqui|1
+1012|Andrea Ruiz|Ar12@email.com|0991414466|Av. Mariana de Jesus 121 Quito|1
+1013|Alexis Lopez|alopez12@email.com|0965873254|Los Shyris 12 Quito|1

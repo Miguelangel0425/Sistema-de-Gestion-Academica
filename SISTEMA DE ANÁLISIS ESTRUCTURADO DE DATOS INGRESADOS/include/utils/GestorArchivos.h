@@ -37,7 +37,7 @@ class GestorArchivos{
     // Cargar datos
     bool cargarClientes(arbolBinario<Cliente>& arbol);
     bool cargarProductos(ListaEnlazada<Producto>& lista);
-    bool cargarPedidos(colaPrioridad<Pedido>& cola);
+    bool cargarPedidos(colaPrioridad<Pedido>& cola, ListaEnlazada<Producto>& lista);
     bool cargarHistorial(Pila<string>& pila);
     bool cargarContadores(int& clientes, int& productos, int& pedidos);
     bool cargarTodo(arbolBinario<Cliente>& arbol,ListaEnlazada<Producto>& lista,colaPrioridad<Pedido>& cola,

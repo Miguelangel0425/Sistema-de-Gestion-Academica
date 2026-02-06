@@ -1,0 +1,45 @@
+[06/02/2026] Cliente Registrado - ID: 1013 - Alexis Lopez
+[06/02/2026] Cliente Registrado - ID: 1012 - Andrea Ruiz
+[06/02/2026] Cliente Registrado - ID: 1011 - Johan Garcia
+[06/02/2026] Cliente Registrado - ID: 1010 - Miguel Caiza
+[06/02/2026] Pedido creado - ID: 8 - Cliente: Juan Perez - Total: 1399.99
+[05/02/2026] Cliente desactivado - ID: 1008 - Jorge Torres
+[05/02/2026] Cliente desactivado - ID: 1005 - Patricia Lopez
+[05/02/2026] Pedido creado - ID: 7 - Cliente: Roberto Sanchez - Total: 144.00
+[05/02/2026] Pedido creado - ID: 6 - Cliente: Juan Perez - Total: 195.50
+[05/02/2026] Pedido creado - ID: 5 - Cliente: Laura Ramirez - Total: 480.00
+[05/02/2026] Pedido creado - ID: 4 - Cliente: Carmen Diaz - Total: 2099.95
+[05/02/2026] Pedido creado - ID: 3 - Cliente: Ana Martinez - Total: 258.00
+[05/02/2026] Pedido creado - ID: 2 - Cliente: Carlos Rodriguez - Total: 659.99
+[05/02/2026] Pedido creado - ID: 1 - Cliente: Maria Gonzalez - Total: 474.99
+[05/02/2026] Pedido creado - ID: 0 - Cliente: Juan Perez - Total: 1805.49
+[05/02/2026] PRODUCTO REGISTRADO - ID: 19 - Microfono de Condensador
+[05/02/2026] PRODUCTO REGISTRADO - ID: 18 - Camara Web 4K
+[05/02/2026] PRODUCTO REGISTRADO - ID: 17 - Router WiFi 6
+[05/02/2026] PRODUCTO REGISTRADO - ID: 16 - Memorias USB 32GB
+[05/02/2026] PRODUCTO REGISTRADO - ID: 15 - Soporte para Laptop
+[05/02/2026] PRODUCTO REGISTRADO - ID: 14 - Organizador de Cables
+[05/02/2026] PRODUCTO REGISTRADO - ID: 13 - Lampara de Escritorio LED
+[05/02/2026] PRODUCTO REGISTRADO - ID: 12 - Mousepad Gaming
+[05/02/2026] PRODUCTO REGISTRADO - ID: 11 - Hub USB 4 puertos
+[05/02/2026] PRODUCTO REGISTRADO - ID: 10 - Cable HDMI 2m
+[05/02/2026] PRODUCTO REGISTRADO - ID: 9 - Auriculares Bluetooth
+[05/02/2026] PRODUCTO REGISTRADO - ID: 8 - Webcam Logitech HD
+[05/02/2026] PRODUCTO REGISTRADO - ID: 7 - Disco Duro Externo 1TB
+[05/02/2026] PRODUCTO REGISTRADO - ID: 6 - Impresora HP LaserJet
+[05/02/2026] PRODUCTO REGISTRADO - ID: 5 - Silla Ergonomica
+[05/02/2026] PRODUCTO REGISTRADO - ID: 4 - Escritorio Ejecutivo
+[05/02/2026] PRODUCTO REGISTRADO - ID: 3 - Monitor Samsung 24"
+[05/02/2026] PRODUCTO REGISTRADO - ID: 2 - Teclado Mecanico RGB
+[05/02/2026] PRODUCTO REGISTRADO - ID: 1 - Mouse Logitech MX
+[05/02/2026] PRODUCTO REGISTRADO - ID: 0 - Laptop HP Pavilion
+[05/02/2026] Cliente Registrado - ID: 1009 - Laura Ramirez
+[05/02/2026] Cliente Registrado - ID: 1008 - Jorge Torres
+[05/02/2026] Cliente Registrado - ID: 1007 - Carmen Diaz
+[05/02/2026] Cliente Registrado - ID: 1006 - Roberto Sanchez
+[05/02/2026] Cliente Registrado - ID: 1005 - Patricia Lopez
+[05/02/2026] Cliente Registrado - ID: 1004 - Luis Fernandez
+[05/02/2026] Cliente Registrado - ID: 1003 - Ana Martinez
+[05/02/2026] Cliente Registrado - ID: 1002 - Carlos Rodriguez
+[05/02/2026] Cliente Registrado - ID: 1001 - Maria Gonzalez
+[05/02/2026] Cliente Registrado - ID: 1000 - Juan Perez

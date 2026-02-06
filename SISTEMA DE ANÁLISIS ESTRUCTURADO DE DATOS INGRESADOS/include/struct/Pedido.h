@@ -46,7 +46,7 @@ struct Pedido{
 
     void mostrar() const{
         cout <<"\n||=====================================||"<<endl;
-        cout <<"||      PEDIDO #" << setw(4) << setfill('0') << id << "";
+        cout <<"||      PEDIDO #" << setw(4) << setfill('0') << id << "||" << endl;
         cout <<"||=====================================||" << endl;
         cout << setfill(' ');
         cout << "Cliente ID: " << idCliente << endl;

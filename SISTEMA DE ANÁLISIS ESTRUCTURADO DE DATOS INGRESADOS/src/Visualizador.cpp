@@ -25,8 +25,8 @@ void Visualizador::mostrarArbolClientes(arbolBinario<Cliente>& arbol) {
     
     cout << "\n\nEstadisticas:" << endl;
     cout << "  Total de clientes: " << arbol.getTam() << endl;
-    cout << "  ├─ Activos: " << arbol.contarActivos() << " +" << endl;
-    cout << "  └─ Inactivos: " << arbol.contarInactivos() << "X" << endl;
+    cout << "  |- Activos: " << arbol.contarActivos() << " +" << endl;
+    cout << "  |- Inactivos: " << arbol.contarInactivos() << "X" << endl;
     
     if (arbol.contarInactivos() > 0) {
         cout << "\nNOTA: Los clientes inactivos no se muestran en el listado." << endl;
@@ -100,7 +100,7 @@ void Visualizador::mostrarTodasEstructuras(arbolBinario<Cliente>& arbol,colaPrio
 
 void Visualizador::menuVisualizacion() {
     cout << "\n||=======================================||" << endl;
-    cout << "||     MENÚ DE VISUALIZACIÓN              ||" << endl;
+    cout << "||     MENU DE VISUALIZACIÓN              ||" << endl;
     cout << "||========================================||" << endl;
     cout << "\n1. Ver Arbol de Clientes (BST)" << endl;
     cout << "2. Ver Cola de Pedidos (Prioridad)" << endl;
@@ -108,7 +108,7 @@ void Visualizador::menuVisualizacion() {
     cout << "4. Ver Historial (Pila)" << endl;
     cout << "5. Ver todas las estructuras" << endl;
     cout << "0. Volver al menú principal" << endl;
-    cout << "\nOpción: ";
+    cout << "\nOpcion: ";
 }
 
 void Visualizador::mostrarEncabezado(const string& titulo) {

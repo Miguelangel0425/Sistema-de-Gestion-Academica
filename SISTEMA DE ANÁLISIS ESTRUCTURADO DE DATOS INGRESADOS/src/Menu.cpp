@@ -8,47 +8,10 @@ Menu::Menu(){
     listaProductos = new ListaEnlazada<Producto>();
     procesador = new Procesador(arbolClientes, colaPedidos, pilaHistorial, listaProductos);
     gestorArchivos = new GestorArchivos();
-
-if (gestorArchivos->existenDatosGuardados()) {
-        cout << "\n||========================================||" << endl;
-        cout << "||   DATOS GUARDADOS ENCONTRADOS          ||" << endl;
-        cout << "||========================================||" << endl;
-        cout << "\n¿Desea cargar los datos guardados? (s/n): ";
-        char opcion;
-        cin >> opcion;
-        cin.ignore();
-        
-        if (opcion == 's' || opcion == 'S') {
-            int contClientes, contProductos, contPedidos;
-            if (gestorArchivos->cargarTodo(*arbolClientes, *listaProductos, *colaPedidos, *pilaHistorial,
-                contClientes, contProductos, contPedidos)) {
-                // Restaurar contadores
-                procesador->setContadorClientes(contClientes);
-                procesador->setContadorProductos(contProductos);
-                procesador->setContadorPedidos(contPedidos);
-                
-                cout << "\n✓ Datos cargados exitosamente" << endl;
-                cout << "\nPresione Enter para continuar...";
-                cin.get();
-            }
-        }
-    }
 }
 
 Menu::~Menu() {
 
-    cout << "\n||========================================||" << endl;
-    cout << "||           GUARDADOS DE DATOS           ||" << endl;
-    cout << "||========================================||" << endl;
-    cout << "\n¿Desea cargar los datos guardados? (s/n): ";
-    cout << "\n¿Desea guardar los datos antes de salir? (s/n): ";
-    char opcion;
-    cin >> opcion;
-    
-    if (opcion == 's' || opcion == 'S') {
-        gestorArchivos->guardarTodo(*arbolClientes, *listaProductos, *colaPedidos, *pilaHistorial,
-        procesador->getContadorClientes(),procesador->getContadorProductos(),procesador->getContadorPedidos());
-    }
     delete arbolClientes;
     delete colaPedidos;
     delete pilaHistorial;
@@ -63,32 +26,32 @@ void Menu::mostrarMenuPrincipal() {
     cout << "||         Sistema de Gestion de Pedidos              ||" << endl;
     cout << "||====================================================||" << endl;
     cout << "\n------------------------------------------------------" << endl;
-    cout << "│  GESTIÓN DE DATOS                                  |" << endl;
+    cout << "|  GESTION DE DATOS                                  |" << endl;
     cout << "-------------------------------------------------------" << endl;
     cout << "  1. Ingresar nuevo cliente" << endl;
     cout << "  2. Ingresar nuevo producto" << endl;
     cout << "  3. Crear nuevo pedido" << endl;
     cout << "  4. Gestionar clientes (desactivar/reactivar)" << endl;
     cout << "\n------------------------------------------------------" << endl;
-    cout << "│  PROCESAMIENTO                                     │" << endl;
+    cout << "|  PROCESAMIENTO                                     |" << endl;
     cout << "------------------------------------------------------" << endl;
     cout << "  5. Procesar siguiente pedido (por prioridad)" << endl;
     cout << "  6. Procesar todos los pedidos" << endl;
     cout << "\n------------------------------------------------------" << endl;
-    cout << "│  CONSULTAS                                         │" << endl;
+    cout << "|  CONSULTAS                                         |" << endl;
     cout << "------------------------------------------------------" << endl;
     cout << "  7. Buscar cliente por ID" << endl;
     cout << "  8. Ver estado de pedidos" << endl;
     cout << "  9. Ver historial de operaciones" << endl;
     cout << " 10. Verificar alertas de stock" << endl;
     cout << "\n------------------------------------------------------" << endl;
-    cout << "│  VISUALIZACION Y REPORTES                          │" << endl;
+    cout << "|  VISUALIZACION Y REPORTES                          |" << endl;
     cout << "------------------------------------------------------" << endl;
     cout << " 11. Visualizar estructuras de datos" << endl;
     cout << " 12. Generar reporte estadistico" << endl;
     cout << "\n  0. Salir del sistema" << endl;
     cout << "\n------------------------------------------------------" << endl;
-    cout << "Opción: ";
+    cout << "Opcion: ";
 }
 
 void Menu::ejecutar() {
@@ -169,8 +132,11 @@ void Menu::ingresarCliente() {
     cout << "Ejemplo: Juan Perez,juan@mail.com,0999123456,Av. Principal 123" << endl;
     cout << "\nIngrese los datos del cliente: ";
     
-    cin.ignore();
     string entrada;
+    // Limpiar el buffer solo si hay algo pendiente
+    if (cin.peek() == '\n') {
+        cin.ignore();
+    }
     getline(cin, entrada);
     
     vector<string> campos;
@@ -181,6 +147,7 @@ void Menu::ingresarCliente() {
         cout << "\n¿Desea ingresar otro cliente? (s/n): ";
         char respuesta;
         cin >> respuesta;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         if (respuesta == 's' || respuesta == 'S') {
             ingresarCliente();
         }
@@ -191,11 +158,14 @@ void Menu::ingresarProducto() {
     Visualizador::mostrarEncabezado("INGRESO DE NUEVO PRODUCTO");
     
     cout << "\nFormato: Nombre,Precio,Cantidad,Categoria" << endl;
-    cout << "Ejemplo: Laptop HP,899.99,10,Electrónica" << endl;
+    cout << "Ejemplo: Laptop HP,899.99,10,Electronica" << endl;
     cout << "\nIngrese los datos del producto: ";
     
-    cin.ignore();
     string entrada;
+    // Limpiar el buffer solo si hay algo pendiente
+    if (cin.peek() == '\n') {
+        cin.ignore();
+    }
     getline(cin, entrada);
     
     vector<string> campos;
@@ -206,6 +176,7 @@ void Menu::ingresarProducto() {
         cout << "\n¿Desea ingresar otro producto? (s/n): ";
         char respuesta;
         cin >> respuesta;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         if (respuesta == 's' || respuesta == 'S') {
             ingresarProducto();
         }
@@ -273,30 +244,47 @@ void Menu::ingresarPedido() {
     char agregarMas;
     
     do {
-        cout << "\n--- Productos disponibles ---" << endl;
+        cout << "\n--- PRODUCTOS DISPONIBLES ---" << endl;
         listaProductos->mostrar();
         
-        cout << "\nSeleccione el numero de producto (0 a " 
-            << (listaProductos->getTam() - 1) << "): ";
-        int indice;
-        cin >> indice;
+        cout << "\nIngrese el ID del producto: ";
+        int idProducto;
+        cin >> idProducto;
         
-        if (indice >= 0 && indice < listaProductos->getTam()) {
-            Producto prod = listaProductos->obtener(indice);
-            
-            cout << "Cantidad a pedir: ";
-            int cantidad;
-            cin >> cantidad;
-            
-            if (cantidad > 0 && cantidad <= prod.cantidad) {
-                prod.cantidad = cantidad;
-                productosSeleccionados.push_back(prod);
-                Visualizador::mostrarExito("Producto agregado al pedido");
-            } else {
-                Visualizador::mostrarError("Cantidad invalida o sin stock suficiente");
+        bool encontrado = false;
+        for (int i = 0; i < listaProductos->getTam(); i++) {
+            Producto prod = listaProductos->obtener(i);
+            if (prod.id == idProducto) {
+                encontrado = true;
+                
+                if (prod.cantidad == 0) {
+                    Visualizador::mostrarError("Producto agotado");
+                    break;
+                }
+                
+                cout << "Producto: " << prod.nombre << endl;
+                cout << "Disponibles: " << prod.cantidad << " unidades" << endl;
+                cout << "Precio: " << prod.precio << endl;
+                cout << "Cantidad a pedir: ";
+                int cantidad;
+                cin >> cantidad;
+                
+                if (cantidad <= 0 || cantidad > prod.cantidad) {
+                    Visualizador::mostrarError("Cantidad invalida");
+                    break;
+                }
+                
+                Producto prodPedido = prod;
+                prodPedido.cantidad = cantidad;
+                productosSeleccionados.push_back(prodPedido);
+                
+                cout << "+ Producto agregado al pedido" << endl;
+                break;
             }
-        } else {
-            Visualizador::mostrarError("Indice invalido");
+        }
+        
+        if (!encontrado) {
+            Visualizador::mostrarError("Producto no encontrado");
         }
         
         cout << "\n¿Agregar otro producto? (s/n): ";
@@ -304,19 +292,23 @@ void Menu::ingresarPedido() {
         
     } while (agregarMas == 's' || agregarMas == 'S');
     
-    if (!productosSeleccionados.empty()) {
-        Pedido pedido = procesador->procesarPedido(idCliente, prioridad, productosSeleccionados);
-        Visualizador::mostrarExito("Pedido creado exitosamente");
+    if (productosSeleccionados.empty()) {
+        Visualizador::mostrarError("No se agregaron productos al pedido");
+        return;
     }
+    
+    Pedido pedido = procesador->procesarPedido(idCliente, prioridad, productosSeleccionados);
+    Visualizador::mostrarExito("Pedido creado exitosamente");
+    pedido.mostrar();
 }
 
 void Menu::procesarPedidos() {
     procesador->procesarSiguientePedido();
 }
 
-void Menu::buscarCliente(){
-    Visualizador::mostrarEncabezado("Busqueda de Clientes");
-
+void Menu::buscarCliente() {
+    Visualizador::mostrarEncabezado("BUSQUEDA DE CLIENTE");
+    
     if (arbolClientes->estaVacio()) {
         Visualizador::mostrarAdvertencia("No hay clientes registrados");
         return;
@@ -326,26 +318,42 @@ void Menu::buscarCliente(){
     int id;
     cin >> id;
     
-    cout << "\n[BUSQUEDA EN ARBOL BINARIO]" << endl;
-    cout << "Buscando cliente con ID: " << id << "..." << endl;
+    cout << "\n[PROCESO DE BUSQUEDA EN BST]" << endl;
+    cout << "Buscando ID: " << id << endl;
+    cout << "Estructura: Arbol Binario de Busqueda" << endl;
+    cout << "Complejidad: O(log n) en promedio" << endl;
+    cout << "----------------------------------------" << endl;
     
     Cliente* cliente = arbolClientes->buscar(id);
     
     if (cliente != nullptr) {
         Visualizador::mostrarExito("Cliente encontrado");
-        cout << "\n";
+        cout << "\nDatos del cliente:" << endl;
+        cout << "----------------------------------------" << endl;
         cliente->mostrar();
     } else {
-        Visualizador::mostrarError("Cliente no encontrado");
+        Visualizador::mostrarError("Cliente no encontrado en el sistema");
     }
 }
 
-void Menu::verEstadosPedidos(){
-    Visualizador::mostrarColaPedidos(*colaPedidos);
+void Menu::verEstadosPedidos() {
+    Visualizador::mostrarEncabezado("ESTADO DE PEDIDOS");
+    
+    if (colaPedidos->estaVacio()) {
+        cout << "\n! No hay pedidos pendientes" << endl;
+        return;
+    }
+    
+    cout << "\nPEDIDOS EN COLA (ordenados por prioridad):" << endl;
+    cout << "----------------------------------------" << endl;
+    colaPedidos->mostrar();
+    
+    cout << "\n----------------------------------------" << endl;
+    cout << "Total de pedidos pendientes: " << colaPedidos->getTam() << endl;
 }
 
-void Menu::verHistorial(){
-    Visualizador::mostrarHistorial(*pilaHistorial);
+void Menu::verHistorial() {
+    pilaHistorial->mostrarHistorial();
 }
 
 void Menu::visualizarEstructuras() {
@@ -356,42 +364,45 @@ void Menu::visualizarEstructuras() {
         Visualizador::menuVisualizacion();
         opcion = leerOpcion();
         
-        switch (opcion) {
-            case 1:
-                Visualizador::mostrarArbolClientes(*arbolClientes);
-                pausar();
-                break;
-            case 2:
-                Visualizador::mostrarColaPedidos(*colaPedidos);
-                pausar();
-                break;
-            case 3:
-                Visualizador::mostrarListaProductos(*listaProductos);
-                pausar();
-                break;
-            case 4:
-                Visualizador::mostrarHistorial(*pilaHistorial);
-                pausar();
-                break;
-            case 5:
-                Visualizador::mostrarTodasEstructuras(*arbolClientes, *colaPedidos,*pilaHistorial, *listaProductos);
-                pausar();
-                break;
-            case 0:
-                break;
-            default:
-                Visualizador::mostrarError("Opcion invalida");
-                pausar();
+        try {
+            switch (opcion) {
+                case 1:
+                    Visualizador::mostrarArbolClientes(*arbolClientes);
+                    pausar();
+                    break;
+                case 2:
+                    Visualizador::mostrarColaPedidos(*colaPedidos);
+                    pausar();
+                    break;
+                case 3:
+                    Visualizador::mostrarListaProductos(*listaProductos);
+                    pausar();
+                    break;
+                case 4:
+                    Visualizador::mostrarHistorial(*pilaHistorial);
+                    pausar();
+                    break;
+                case 5:
+                    Visualizador::mostrarTodasEstructuras(*arbolClientes, *colaPedidos, 
+                                                         *pilaHistorial, *listaProductos);
+                    pausar();
+                    break;
+                case 0:
+                    break;
+                default:
+                    Visualizador::mostrarError("Opcion invalida");
+                    pausar();
+            }
+        } catch (const exception& e) {
+            Visualizador::mostrarError(e.what());
+            pausar();
         }
+        
     } while (opcion != 0);
 }
 
 void Menu::generarReporte() {
     procesador->calcularEstadisticas();
-}
-
-void Menu::verificarStock() {
-    procesador->verificarStockCritico();
 }
 
 void Menu::gestionarCliente() {
@@ -550,13 +561,13 @@ void Menu::mostrarTodosClientes() {
     }
     
     cout << "\nTODOS los clientes (activos e inactivos):" << endl;
-    cout << "────────────────────────────────────────────" << endl;
+    cout << "------------------------------------------------" << endl;
     arbolClientes->inordenTodos();
     
-    cout << "\n────────────────────────────────────────────" << endl;
+    cout << "\n-----------------------------------------------" << endl;
     cout << "Total: " << arbolClientes->getTam() << " clientes" << endl;
-    cout << "  ├─ Activos: " << arbolClientes->contarActivos() << " +" << endl;
-    cout << "  └─ Inactivos: " << arbolClientes->contarInactivos() << " X" << endl;
+    cout << "  |- Activos: " << arbolClientes->contarActivos() << " +" << endl;
+    cout << "  |-- Inactivos: " << arbolClientes->contarInactivos() << " X" << endl;
 }
 
 void Menu::pausar() {
@@ -605,7 +616,7 @@ void Menu::cargarDatos() {
     }
     
     cout << "\n!  ADVERTENCIA: Esto sobrescribira los datos actuales en memoria" << endl;
-    cout << "¿Está seguro de que desea cargar los datos guardados? (s/n): ";
+    cout << "¿Esta seguro de que desea cargar los datos guardados? (s/n): ";
     char opcion;
     cin >> opcion;
     
@@ -615,12 +626,16 @@ void Menu::cargarDatos() {
         delete colaPedidos;
         delete pilaHistorial;
         delete listaProductos;
+        delete procesador; // IMPORTANTE: también eliminar el procesador
         
         // Recrear estructuras vacías
         arbolClientes = new arbolBinario<Cliente>();
         colaPedidos = new colaPrioridad<Pedido>();
         pilaHistorial = new Pila<string>();
         listaProductos = new ListaEnlazada<Producto>();
+        
+        // CORRECCIÓN: Recrear el procesador con las nuevas estructuras
+        procesador = new Procesador(arbolClientes, colaPedidos, pilaHistorial, listaProductos);
         
         // Cargar datos
         int contClientes, contProductos, contPedidos;
@@ -635,4 +650,6 @@ void Menu::cargarDatos() {
     }
 }
 
-
+void Menu::verificarStock() {
+    procesador->verificarStockCritico();
+}
