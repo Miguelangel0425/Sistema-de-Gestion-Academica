@@ -25,7 +25,7 @@ class ListaEnlazada{
         nodoSimple<T>* nuevo = new nodoSimple<T>(dato);
 
         if(cabeza==nullptr){
-            cabeza == nuevo;
+            cabeza = nuevo;
         } else {
             nodoSimple<T>* actual = cabeza;
             while(actual->siguiente != nullptr){
@@ -43,6 +43,10 @@ class ListaEnlazada{
         tam++;
     }
 
+    int getTam() const {
+        return tam;
+    }
+    
     void insertar(const T& dato, int pos){
         if(pos < 0 || pos > tam){
             throw out_of_range("Posicion fuera de rango");
@@ -75,7 +79,7 @@ class ListaEnlazada{
         }
 
         if(pos == 0){
-            nodoSimple<T>* tem = cabeza;
+            nodoSimple<T>* temp = cabeza;
             cabeza = cabeza->siguiente;
             delete temp;
             tam--;
@@ -99,7 +103,7 @@ class ListaEnlazada{
         }
 
         nodoSimple<T>* actual = cabeza;
-        for(int i = 0; i < pos, i++){
+        for(int i = 0; i < pos; i++){
             actual = actual->siguiente;
         }
         return actual->dato;
@@ -112,7 +116,7 @@ class ListaEnlazada{
     void limpiar(){
         while(cabeza != nullptr){
             nodoSimple<T>* temp = cabeza;
-            caebza = cabeza->siguiente;
+            cabeza = cabeza->siguiente;
             delete temp;
         }
         tam = 0;

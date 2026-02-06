@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <vector>
 #include "../struct/Nodo.h"
 
 using namespace std;
@@ -28,14 +29,14 @@ class Pila{
     }
 
     T desapilar(){
-        if(estavacio()){
+        if(estaVacio()){
             throw runtime_error("La pila esta vacia");
         }
 
         nodoPila<T>* temp = top;
         T dato = top->dato;
         top = top->sig;
-        delete top;
+        delete temp;
         tam--;
 
         return dato;
@@ -60,6 +61,16 @@ class Pila{
         while(!estaVacio()){
             desapilar();
         }
+    }
+
+    void obtenerElementos(vector<T>& elementos)const {
+        elementos.clear();
+        nodoPila<T>* actual = top;
+        while(actual != nullptr){
+            elementos.push_back(actual->dato);
+            actual = actual->sig;
+        }
+        
     }
 
     void mostrarHistorial() const{

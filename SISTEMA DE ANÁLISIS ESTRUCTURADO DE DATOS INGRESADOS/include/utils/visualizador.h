@@ -24,12 +24,12 @@ class Visualizador{
 
     static void mostrarListaProductos(ListaEnlazada<Producto>& lista);
 
-    static void mostarTodasEstructuras(arbolBinario<Cliente>& arbol,
+    static void mostrarTodasEstructuras(arbolBinario<Cliente>& arbol,
     colaPrioridad<Pedido>& cola,Pila<string>& pila,ListaEnlazada<Producto>& lista);
 
     static void menuVisualizacion();
 
-    static void MostrarEncabezado();
+    static void mostrarEncabezado(const string& titulo);
 
     static void mostrarSeparador();
 

@@ -17,7 +17,7 @@ class Procesador{
     private:
     arbolBinario<Cliente>* arbolClientes;
     colaPrioridad<Pedido>* colaPedidos;
-    Pila<string>* historial;
+    Pila<string>* pilaHistorial;
     ListaEnlazada<Producto>* listaProductos;
 
     int clientesCont;
@@ -41,7 +41,11 @@ class Procesador{
 
     bool clienteTienePedidos(int idCliente);
 
-    bool eliminarCliente(int idCliente);
+    bool desactivarCliente(int idCliente);
+
+    bool reactivarCliente(int idCliente);
+
+    void listaClientesInactivos();
     
     void verificarStockCritico();
 
@@ -57,5 +61,15 @@ class Procesador{
     void agregarHistorial(const string& operacion);
     
     void calcularEstadisticas();
+
+    //Obtener contadores(para guardar)
+    int getContadorClientes() const { return clientesCont; }
+    int getContadorPedidos() const { return pedidosCont; }
+    int getContadorProductos() const { return productosCont; }
+    
+    //  Establecer contadores (para cargar)
+    void setContadorClientes(int valor) { clientesCont = valor; }
+    void setContadorPedidos(int valor) { pedidosCont = valor; }
+    void setContadorProductos(int valor) { productosCont = valor; }
 };
 #endif

@@ -13,6 +13,7 @@
 #include "Procesador.h"
 #include "Validador.h"
 #include "Visualizador.h"
+#include "GestorArchivos.h"
 
 using namespace std;
 
@@ -20,9 +21,10 @@ class Menu{
     private:
     arbolBinario<Cliente>* arbolClientes;
     colaPrioridad<Pedido>* colaPedidos;
-    Pila<string>* historial;
+    Pila<string>* pilaHistorial;
     ListaEnlazada<Producto>* listaProductos;
     Procesador* procesador;
+    GestorArchivos* gestorArchivos;
 
     public:
 
@@ -43,9 +45,18 @@ class Menu{
     void verHistorial();
     void visualizarEstructuras();
     void generarReporte();
-    void eliminarCliente();
+
+    void gestionarCliente();
+    void desactivarCliente();
+    void reactivarCliente();
+    void verClientesInactivo();
+    void mostrarClientesActivos();
+    void mostrarTodosClientes();
 
     void verificarStock();
+
+    void guardarDatos();
+    void cargarDatos();
 
     void pausar();
     void limpiarPantalla();

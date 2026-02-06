@@ -3,7 +3,10 @@
 
 #include "../struct/Nodo.h"
 #include <iostream>
-#include <string>
+#include<stdexcept>
+#include <vector>
+
+using namespace std;
 
 template <typename T>
 class arbolBinario {
@@ -105,7 +108,7 @@ private:
     }
 
     // ================= RECORRIDOS =================
-    void inOrdenRec(nodoArbol<T>* nodo) {
+    void inOrdenRec(nodoArbol<T>* nodo) const{
         if (nodo != nullptr) {
             inOrdenRec(nodo->izq);
             nodo->dato.mostrar();
@@ -113,7 +116,7 @@ private:
         }
     }
 
-    void preOrdenRec(nodoArbol<T>* nodo) {
+    void preOrdenRec(nodoArbol<T>* nodo) const{
         if (nodo != nullptr) {
             nodo->dato.mostrar();
             preOrdenRec(nodo->izq);
@@ -121,7 +124,7 @@ private:
         }
     }
 
-    void postOrdenRec(nodoArbol<T>* nodo) {
+    void postOrdenRec(nodoArbol<T>* nodo) const{
         if (nodo != nullptr) {
             postOrdenRec(nodo->izq);
             postOrdenRec(nodo->der);
@@ -129,14 +132,45 @@ private:
         }
     }
 
+    void inordenActivosRecursivo(nodoArbol<T>* nodo) const {
+        if (nodo != nullptr) {
+            inordenActivosRecursivo(nodo->izq);
+
+            if(nodo->dato.activo){
+                nodo->dato.mostrar();
+            }
+            inordenActivosRecursivo(nodo->der);
+        }
+    }
+    
+    int contarActivosRecursivo(nodoArbol<T>* nodo) const {
+        if (nodo == nullptr ) return 0;
+
+        int count = nodo->dato.activo ? 1 : 0;
+        count += contarActivosRecursivo(nodo->izq);
+        count += contarActivosRecursivo(nodo->der);
+
+        return count;
+    }
+
+    void obtenerElementosRecursivo(nodoArbol<T>* nodo, vector<T>& elementos) const{
+        if(nodo != nullptr){
+            obtenerElementosRecursivo(nodo->izq, elementos);
+            elementos.push_back(nodo->dato);
+            obtenerElementosRecursivo(nodo->der,elementos);
+        }
+    }
+
     // ================= IMPRIMIR ÁRBOL =================
     void imprimirArbolRec(nodoArbol<T>* nodo, std::string prefijo, bool esIzq) const {
         if (nodo != nullptr) {
             std::cout << prefijo
-                      << (esIzq ? "|-- " : "`-- ")
-                      << "ID: " << nodo->dato.id
-                      << " (" << nodo->dato.nombre << ")"
-                      << std::endl;
+                    << (esIzq ? "|-- " : "`-- ");
+            if (!nodo->dato.activo) {
+                cout << " X ID: " << nodo->dato.id << " (" << nodo->dato.nombre << ") [INACTIVO]" << endl;
+            } else {
+                cout << " + ID: " << nodo->dato.id << " (" << nodo->dato.nombre << ")" << endl;
+            }
 
             std::string nuevoPrefijo = prefijo + (esIzq ? "|   " : "    ");
             imprimirArbolRec(nodo->izq, nuevoPrefijo, true);
@@ -176,6 +210,28 @@ public:
         return tam;
     }
 
+    int contarActivos() const {
+        return contarActivosRecursivo(raiz);
+    }
+
+    int contarInactivos() const {
+        return tam - contarActivos();
+    }
+
+    void inordenActivos() const{
+        if(estaVacio()){
+            cout << "Arbol Vacio " << endl;
+            return;
+        }
+
+        if(contarActivos() == 0){
+            cout << "No hay clientes activos " << endl;
+            return;
+        }
+
+        inordenActivosRecursivo(raiz);
+    }
+
     void inOrden() {
         if (estaVacio()) {
             std::cout << "Arbol vacio\n";
@@ -200,15 +256,33 @@ public:
         postOrdenRec(raiz);
     }
 
+        void inordenTodos() const {
+        if (estaVacio()) {
+            cout << "Arbol vacio" << endl;
+            return;
+        }
+        inOrdenRec(raiz);
+    }
+
+    void obtenerElementos(vector<T>& elementos){
+        elementos.clear();
+        obtenerElementosRecursivo(raiz,elementos);
+    }
+
     void imprimirArbol() const {
         if (estaVacio()) {
             std::cout << "Arbol vacio\n";
             return;
         }
-        std::cout << "Raiz -> ID: " << raiz->dato.id
-                  << " (" << raiz->dato.nombre << ")\n";
+        string estadoRaiz = raiz->dato.activo ? "" : "[INACTIVO]";
+        cout << "Raiz -> ID: " << raiz->dato.id 
+        << " (" << raiz->dato.nombre <<") "<<estadoRaiz << "\n";
+        if(raiz->izq != nullptr){
         imprimirArbolRec(raiz->izq, "", true);
+        }
+        if (raiz->der != nullptr){
         imprimirArbolRec(raiz->der, "", false);
+        }
     }
 };
 

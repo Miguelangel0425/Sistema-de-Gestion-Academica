@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <vector>
+#include <utility>
 #include "../struct/Nodo.h"
 
 using namespace std;
@@ -52,7 +54,7 @@ class colaPrioridad{
             throw runtime_error("La cola esta vacia");
         }
 
-        nodoCola<T>* temp = top;
+        nodoCola<T>* temp = frente;
         T dato = frente->dato;
         frente = frente->sig;
         if(frente==nullptr){
@@ -71,7 +73,7 @@ class colaPrioridad{
         return frente->dato;
     }
 
-    bool estaVacio(){
+    bool estaVacio() const{
         return frente == nullptr;
     }
 
@@ -85,6 +87,15 @@ class colaPrioridad{
         }
     }
 
+    void obtenerElemento(vector<pair<T, int>>& elementos) const{
+        elementos.clear();
+        nodoCola<T>* actual = frente;
+        while (actual != nullptr){
+            elementos.push_back(make_pair(actual->dato,actual->prioridad));
+            actual = actual->sig;
+        }
+        
+    }
     void mostrar() const{
         if(estaVacio()){
             cout << "Cola vacia" << endl;
